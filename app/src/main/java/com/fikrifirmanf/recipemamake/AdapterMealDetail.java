@@ -14,33 +14,34 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
 import com.fikrifirmanf.recipemamake.models.Meal;
+import com.fikrifirmanf.recipemamake.models.MealRecipe;
 
 import java.util.List;
 
-import okhttp3.internal.Util;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
-    private List<Meal> meals;
+public class AdapterMealDetail extends RecyclerView.Adapter<AdapterMealDetail.MyViewHolder> {
+    private List<MealRecipe> meals;
     private Context context;
 
-    public Adapter(List<Meal> meals, Context context) {
+    public AdapterMealDetail(List<MealRecipe> meals, Context context) {
         this.meals = meals;
         this.context = context;
     }
 
-    private AdapterView.OnItemClickListener onItemClickListener;
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cards_layout, parent, false);
-        return new MyViewHolder(view, (OnItemClickListener) onItemClickListener);
+        View view = LayoutInflater.from(context).inflate(R.layout.activity_meal_recipe_detail, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holders, int position) {
         final MyViewHolder holder = holders;
-        Meal model = meals.get(position);
+        MealRecipe model = meals.get(position);
 //        RequestOptions requestOptions = new RequestOptions();
 //        requestOptions.placeholder(Utils.getRandomDrawbleColor());
 //        requestOptions.error(Utils.getRandomDrawbleColor());
@@ -53,7 +54,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
                 .into(holder.imgFood);
         holder.nameFood.setText(model.getStrMeal());
-        holder.catFood.setText(model.getStrMeal());
+        holder.catFood.setText(model.getStrCategory());
+        holder.descFood.setText(model.getStrInstructions());
     }
 
     @Override
@@ -61,31 +63,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         return meals.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener = (AdapterView.OnItemClickListener) onItemClickListener;
-    }
 
-    public interface OnItemClickListener{
-        void onItemClick(View view, int position);
-    }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameFood, catFood;
+        TextView nameFood, catFood, descFood;
         ImageView imgFood;
-        OnItemClickListener onItemClickListener;
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
-            nameFood = itemView.findViewById(R.id.tv_name);
-            catFood = itemView.findViewById(R.id.tv_cat);
-            imgFood = itemView.findViewById(R.id.img_picfood);
-            this.onItemClickListener = onItemClickListener;
+
+            nameFood = itemView.findViewById(R.id.rv_name);
+            catFood = itemView.findViewById(R.id.rv_cat);
+            imgFood = itemView.findViewById(R.id.rv_pics);
+            descFood = itemView.findViewById(R.id.rv_desc);
+
         }
 
-        @Override
-        public void onClick(View view) {
-            onItemClickListener.onItemClick(view, getAdapterPosition());
-        }
+
     }
 }
