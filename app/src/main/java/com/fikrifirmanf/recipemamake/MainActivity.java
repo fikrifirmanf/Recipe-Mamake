@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.fikrifirmanf.recipemamake.api.ApiClient;
@@ -37,11 +40,22 @@ public class MainActivity extends AppCompatActivity {
         //layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         LoadJson();
 
 
 
+    }
+
+    private void initListener(){
+        adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MainActivity.this, MealRecipeDetail.class);
+                Meal meal = meals.get(position);
+                intent.putExtra("id", meal.getIdMeal());
+                startActivity(intent);
+            }
+        });
     }
 
     public void LoadJson(){
@@ -60,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     adapter = new Adapter(meals, MainActivity.this);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-
+                    initListener();
 
 
                 }else {

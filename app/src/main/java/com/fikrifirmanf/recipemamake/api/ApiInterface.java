@@ -15,7 +15,7 @@ public interface ApiInterface {
     );
     @GET("lookup.php")
     Call<MealDetail> getMealDetail(
-            @Query("i") String id
+            @Query("i") int id
     );
 
 }

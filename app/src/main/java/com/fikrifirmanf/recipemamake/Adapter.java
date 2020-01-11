@@ -29,12 +29,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         this.context = context;
     }
 
-    private AdapterView.OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.cards_layout, parent, false);
-        return new MyViewHolder(view, (OnItemClickListener) onItemClickListener);
+        return new MyViewHolder(view, onItemClickListener);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener = (AdapterView.OnItemClickListener) onItemClickListener;
+        this.onItemClickListener = onItemClickListener;
     }
 
     public interface OnItemClickListener{

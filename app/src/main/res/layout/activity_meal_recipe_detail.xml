@@ -1,66 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".MealRecipeDetail">
+    tools:context=".MealRecipeDetail"
 
+    >
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/rv_pics"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher_foreground" />
+        android:layout_height="match_parent">
 
-        </FrameLayout>
-        <TextView
-            android:id="@+id/rv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="Meal"
-            android:textColor="@color/colorAccent"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/rv_cat"
-
-            android:drawableTint="@color/colorAccent"
-            android:drawablePadding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Kategori"
-            android:textSize="15sp" />
-
-
-        <TextView
-            android:id="@+id/rv_desc"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_recycler_view_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Desc"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            android:clipToPadding="false"
+
+
+            />
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>
