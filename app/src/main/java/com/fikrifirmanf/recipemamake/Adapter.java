@@ -53,7 +53,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
                 .into(holder.imgFood);
         holder.nameFood.setText(model.getStrMeal());
-        holder.catFood.setText(model.getStrMeal());
+
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             super(itemView);
             itemView.setOnClickListener(this);
             nameFood = itemView.findViewById(R.id.tv_name);
-            catFood = itemView.findViewById(R.id.tv_cat);
+
             imgFood = itemView.findViewById(R.id.img_picfood);
             this.onItemClickListener = onItemClickListener;
         }

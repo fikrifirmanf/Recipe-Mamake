@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="190dp"
-        android:layout_height="250dp"
+        android:layout_height="220dp"
         android:layout_gravity="center"
         android:layout_margin="8dp"
         android:background="@drawable/shape"
@@ -41,18 +41,7 @@
                 android:paddingTop="@dimen/album_title_padding"
                 android:text="Name"
                 android:textSize="@dimen/album_title" />
-            <TextView
-                android:id="@+id/tv_cat"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name"
-                android:paddingLeft="@dimen/album_title_padding"
-                android:paddingRight="@dimen/album_title_padding"
-                android:paddingTop="@dimen/album_title_padding"
 
-                android:textSize="@dimen/album_title" />
 
 
 
