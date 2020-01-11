@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fikrifirmanf.recipemamake.api.ApiClient;
@@ -28,23 +29,29 @@ public class MealRecipeDetail extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private List<MealRecipe> meals = new ArrayList<>();
-    private AdapterMealDetail adapter;
-    private String TAG = MainActivity.class.getSimpleName();
+    private RecyclerView.Adapter adapter;
 
-    private String mealId;
+    private String TAG = MainActivity.class.getSimpleName();
+    TextView tvTot;
+    private String mealId, title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_recipe_detail);
 
-        recyclerView = findViewById(R.id.my_recycler_view_detail);
-        layoutManager = new LinearLayoutManager(MealRecipeDetail.this);
-       // recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView = findViewById(R.id.rv_detail);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MealRecipeDetail.this));
+
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        LoadJson();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
+
         mealId = intent.getStringExtra("id");
+        title = intent.getStringExtra("title");
+        setTitle(title);
+        LoadJson();
+
 
 
     }
@@ -64,7 +71,7 @@ public class MealRecipeDetail extends AppCompatActivity {
     public void LoadJson(){
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<MealDetail> call;
-        call = apiInterface.getMealDetail(52772);
+        call = apiInterface.getMealDetail(mealId);
         call.enqueue(new Callback<MealDetail>() {
             @Override
             public void onResponse(Call<MealDetail> call, Response<MealDetail> response) {
@@ -74,9 +81,11 @@ public class MealRecipeDetail extends AppCompatActivity {
                         meals.clear();
                     }
                     meals = response.body().getMeals();
-                    adapter = new AdapterMealDetail(meals, MealRecipeDetail.this);
+
+                    adapter = new FoodDetailAdapter(meals, MealRecipeDetail.this);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+
                     //initListener();
 
 

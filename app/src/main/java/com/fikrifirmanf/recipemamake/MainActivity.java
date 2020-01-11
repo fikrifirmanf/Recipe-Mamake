@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MealRecipeDetail.class);
                 Meal meal = meals.get(position);
                 intent.putExtra("id", meal.getIdMeal());
+                intent.putExtra("title", meal.getStrMeal());
                 startActivity(intent);
             }
         });
