@@ -6,11 +6,6 @@
     android:orientation="vertical"
     android:id="@+id/layout_parent"
     xmlns:tools="http://schemas.android.com/tools">
-
-
-
-
-
             <ImageView
                 android:id="@+id/img_item_photo"
                 android:layout_width="match_parent"
@@ -26,8 +21,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="dsdsdsdsd"
+                Bottom="8dp"
+                android:text="Name Food"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 />
@@ -36,29 +31,79 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:text="dsdsdsdsd"
+        android:text="Category"
+        android:textSize="14sp"
+
+        />
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+
+        android:layout_marginRight="16dp"
+
+        android:text="How To : "
         android:textSize="16sp"
-        android:textStyle="bold"
+
         />
     <TextView
         android:id="@+id/tv_item_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:text="dsdsdsdsd"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textSize="14sp"
+
         />
+    <TextView
 
 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Ingredients"
+        android:textSize="16sp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
+        <TextView
+            android:id="@+id/tv_item_bahane"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
 
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
 
+            />
+        <TextView
+            android:layout_weight="0"
+            android:id="@+id/tv_item_bahan_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+
+            android:textSize="16sp"
+
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

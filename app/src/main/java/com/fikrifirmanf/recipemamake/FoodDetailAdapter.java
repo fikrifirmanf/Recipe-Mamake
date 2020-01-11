@@ -2,6 +2,7 @@ package com.fikrifirmanf.recipemamake;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,12 @@ public class FoodDetailAdapter extends RecyclerView.Adapter<FoodDetailAdapter.My
         this.context = context;
     }
 
-    private OnItemClickListener onItemClickListener;
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_detail, parent, false);
-        return new MyViewHolder(view, onItemClickListener);
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -56,6 +57,33 @@ public class FoodDetailAdapter extends RecyclerView.Adapter<FoodDetailAdapter.My
         holder.nameFood.setText(model.getStrMeal());
         holder.catFood.setText(model.getStrCategory());
         holder.descFood.setText(model.getStrInstructions());
+        if(!model.getStrIngredient1().isEmpty()){
+            holder.bahane.append("\n \u2022"+model.getStrIngredient1());
+        }
+        if(!model.getStrIngredient2().isEmpty()){
+            holder.bahane.append("\n \u2022"+model.getStrIngredient2());
+        }
+        if(!model.getStrIngredient3().isEmpty()){
+            holder.bahane.append("\n \u2022"+model.getStrIngredient3());
+        }
+        if(!model.getStrIngredient4().isEmpty()){
+            holder.bahane.append("\n \u2022"+model.getStrIngredient4());
+        }
+
+//        Measurenya
+        if(!model.getStrMeasure1().isEmpty() && !Character.isWhitespace(model.getStrMeasure1().charAt(0))){
+            holder.totalBahan.append("\n : "+model.getStrMeasure1());
+        }
+        if(!model.getStrMeasure2().isEmpty() && !Character.isWhitespace(model.getStrMeasure2().charAt(0))){
+            holder.totalBahan.append("\n : "+model.getStrMeasure2());
+        }
+        if(!model.getStrMeasure3().isEmpty() && !Character.isWhitespace(model.getStrMeasure3().charAt(0))){
+            holder.totalBahan.append("\n : "+model.getStrMeasure3());
+        }
+        if(!model.getStrMeasure4().isEmpty() && !Character.isWhitespace(model.getStrMeasure4().charAt(0))){
+            holder.totalBahan.append("\n : "+model.getStrMeasure4());
+        }
+
 
     }
 
@@ -64,34 +92,28 @@ public class FoodDetailAdapter extends RecyclerView.Adapter<FoodDetailAdapter.My
         return meals.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
-    }
 
-    public interface OnItemClickListener{
-        void onItemClick(View view, int position);
-    }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView nameFood, catFood, descFood;
+        TextView nameFood, catFood, descFood, bahane, totalBahan;
         ImageView imgFood;
-        OnItemClickListener onItemClickListener;
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+
+
+
             nameFood = itemView.findViewById(R.id.tv_item_name);
             catFood =itemView.findViewById(R.id.tv_item_cat);
             descFood = itemView.findViewById(R.id.tv_item_desc);
             imgFood = itemView.findViewById(R.id.img_item_photo);
+            bahane = itemView.findViewById(R.id.tv_item_bahane);
+            totalBahan = itemView.findViewById(R.id.tv_item_bahan_total);
 
 
-            this.onItemClickListener = onItemClickListener;
         }
 
-        @Override
-        public void onClick(View view) {
-            onItemClickListener.onItemClick(view, getAdapterPosition());
-        }
+
     }
 }

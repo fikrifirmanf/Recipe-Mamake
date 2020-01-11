@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +33,13 @@ public class MealRecipeDetail extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private String TAG = MainActivity.class.getSimpleName();
-    TextView tvTot;
+
     private String mealId, title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_recipe_detail);
+
 
         recyclerView = findViewById(R.id.rv_detail);
         recyclerView.setLayoutManager(new LinearLayoutManager(MealRecipeDetail.this));
