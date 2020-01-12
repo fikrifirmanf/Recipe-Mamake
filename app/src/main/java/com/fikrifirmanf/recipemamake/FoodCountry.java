@@ -30,14 +30,14 @@ public class FoodCountry extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private List<Meal> meals = new ArrayList<>();
     private Adapter adapter;
-    private String area;
+    private String area, cat;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onResume();
+
         setContentView(R.layout.activity_food_country);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -50,10 +50,19 @@ public class FoodCountry extends AppCompatActivity {
 
         Intent intent = getIntent();
         area = intent.getStringExtra("area");
-        setTitle(area);
+        cat = intent.getStringExtra("cat");
+
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        LoadJson();
+        if(cat != ""){
+
+            LoadJsonCat();
+            setTitle(cat);
+        }
+        if(area != ""){
+            setTitle(area);
+            LoadJson();
+        }
     }
 
     private void initListener(){
@@ -74,6 +83,37 @@ public class FoodCountry extends AppCompatActivity {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<FoodBritish> call;
         call = apiInterface.getFoodArea(area);
+        call.enqueue(new Callback<FoodBritish>() {
+            @Override
+            public void onResponse(Call<FoodBritish> call, Response<FoodBritish> response) {
+                if(response.isSuccessful() && response.body().getMeals() != null){
+
+                    if(!meals.isEmpty()){
+                        meals.clear();
+                    }
+                    meals = response.body().getMeals();
+                    adapter = new Adapter(meals, FoodCountry.this);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(FoodCountry.this, "Data ada!", Toast.LENGTH_SHORT).show();
+                    initListener();
+
+
+                }else {
+                    Toast.makeText(FoodCountry.this, "No Result!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoodBritish> call, Throwable t) {
+
+            }
+        });
+    }
+    public void LoadJsonCat(){
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<FoodBritish> call;
+        call = apiInterface.getFoodCat(cat);
         call.enqueue(new Callback<FoodBritish>() {
             @Override
             public void onResponse(Call<FoodBritish> call, Response<FoodBritish> response) {

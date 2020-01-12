@@ -1,5 +1,6 @@
 package com.fikrifirmanf.recipemamake.api;
 
+import com.fikrifirmanf.recipemamake.models.CategoryModel;
 import com.fikrifirmanf.recipemamake.models.CountryModel;
 import com.fikrifirmanf.recipemamake.models.FoodBritish;
 import com.fikrifirmanf.recipemamake.models.MealDetail;
@@ -13,6 +14,10 @@ public interface ApiInterface {
     Call<FoodBritish> getFoodArea(
             @Query("a") String country
     );
+    @GET("filter.php")
+    Call<FoodBritish> getFoodCat(
+            @Query("c") String cat
+    );
     @GET("lookup.php")
     Call<MealDetail> getMealDetail(
             @Query("i") String id
@@ -21,9 +26,9 @@ public interface ApiInterface {
     Call<CountryModel> getCountryMeal(
             @Query("a") String namaCountry
     );
-//    @GET("list.php")
-//    Call<CountryModel> getCategoryMeal(
-//            @Query("c") String namaCategor
-//    );
+    @GET("list.php")
+    Call<CategoryModel> getCategoryMeal(
+            @Query("c") String namaCategor
+    );
 
 }

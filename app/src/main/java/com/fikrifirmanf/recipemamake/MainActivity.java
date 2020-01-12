@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fikrifirmanf.recipemamake.api.ApiClient;
 import com.fikrifirmanf.recipemamake.api.ApiInterface;
+import com.fikrifirmanf.recipemamake.models.CategoryMeal;
+import com.fikrifirmanf.recipemamake.models.CategoryModel;
 import com.fikrifirmanf.recipemamake.models.CountryMeal;
 import com.fikrifirmanf.recipemamake.models.CountryModel;
 import com.fikrifirmanf.recipemamake.models.FoodBritish;
@@ -33,15 +35,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerViewcountry;
+    private RecyclerView recyclerViewcountry, recyclerViewCategory;
     private RecyclerView.LayoutManager layoutManager;
 
     private List<CountryMeal> countryMeals = new ArrayList<>();
+    private List<CategoryMeal> categoryMeals = new ArrayList<>();
 
     private CountryMealAdapter countryMealAdapter;
-    TextView tvArea;
-    ImageView imgArea;
-    Context context;
+    private CategoryAdapter categoryAdapter;
+
     private String TAG = MainActivity.class.getSimpleName();
 
 
@@ -52,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         recyclerViewcountry = findViewById(R.id.my_recycler_viewcat);
+        recyclerViewCategory = findViewById(R.id.my_recycler_viewcatfood);
 
         //layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
 
         LoadJsonCountry();
-        //LoadJson();
+        LoadJsonCategory();
 
 
     }
@@ -68,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, FoodCountry.class);
                 CountryMeal meal = countryMeals.get(position);
                 intent.putExtra("area", meal.getStrArea());
+
+                startActivity(intent);
+            }
+        });
+    }
+    private void initListenerCat() {
+        categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MainActivity.this, FoodCountry.class);
+                CategoryMeal meal = categoryMeals.get(position);
+                intent.putExtra("cat", meal.getStrCategory());
 
                 startActivity(intent);
             }
@@ -103,6 +118,39 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CountryModel> call, Throwable t) {
+
+            }
+        });
+    }
+    public void LoadJsonCategory() {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<CategoryModel> call;
+        call = apiInterface.getCategoryMeal("list");
+        call.enqueue(new Callback<CategoryModel>() {
+            @Override
+            public void onResponse(Call<CategoryModel> call, Response<CategoryModel> response) {
+                if (response.isSuccessful() && response.body().getMeals() != null) {
+
+                    if (!categoryMeals.isEmpty()) {
+                        categoryMeals.clear();
+                    }
+                    categoryMeals = response.body().getMeals();
+                    categoryAdapter = new CategoryAdapter(categoryMeals, MainActivity.this);
+                    recyclerViewCategory.setAdapter(categoryAdapter);
+                    categoryAdapter.notifyDataSetChanged();
+                    recyclerViewCategory.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
+                    recyclerViewCategory.setItemAnimator(new DefaultItemAnimator());
+                    recyclerViewCategory.setNestedScrollingEnabled(false);
+                    initListenerCat();
+
+
+                } else {
+                    Toast.makeText(MainActivity.this, "No Result!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryModel> call, Throwable t) {
 
             }
         });

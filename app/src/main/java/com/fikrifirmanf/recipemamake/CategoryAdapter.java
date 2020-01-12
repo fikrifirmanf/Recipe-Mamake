@@ -10,43 +10,34 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fikrifirmanf.recipemamake.models.CountryMeal;
+import com.fikrifirmanf.recipemamake.models.CategoryMeal;
+
 
 import java.util.List;
 
-public class CountryMealAdapter extends RecyclerView.Adapter<CountryMealAdapter.MyViewHolder> {
-    private List<CountryMeal> meals;
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
+    private List<CategoryMeal> meals;
     private Context context;
     int img [] = {
-            R.drawable.american,
-            R.drawable.british,
-            R.drawable.canadian,
-            R.drawable.chinese,
-            R.drawable.dutch,
-            R.drawable.egyptian,
-            R.drawable.french,
-            R.drawable.greek,
-            R.drawable.indian,
-            R.drawable.irish,
-            R.drawable.italian,
-            R.drawable.jamaican,
-            R.drawable.japanese,
-            R.drawable.kenyan,
-            R.drawable.malaysian,
-            R.drawable.mexican,
-            R.drawable.moroccan,
-            R.drawable.russian,
-            R.drawable.spanish,
-            R.drawable.thai,
-            R.drawable.tunisian,
-            R.drawable.turkish,
-            R.drawable.unknown,
-            R.drawable.vietnamese
+            R.drawable.beef,
+            R.drawable.breakfest,
+            R.drawable.chicken,
+            R.drawable.dessert,
+            R.drawable.goat,
+            R.drawable.lamb,
+            R.drawable.misc,
+            R.drawable.wvqpwt1468339226,
+            R.drawable.pork,
+            R.drawable.seafood,
+            R.drawable.side,
+            R.drawable.starter,
+            R.drawable.vegan,
+            R.drawable.vegetarian
 
 
     };
 
-    public CountryMealAdapter(List<CountryMeal> meals, Context context) {
+    public CategoryAdapter(List<CategoryMeal> meals, Context context) {
         this.meals = meals;
         this.context = context;
     }
@@ -55,20 +46,20 @@ public class CountryMealAdapter extends RecyclerView.Adapter<CountryMealAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.card_layout_country, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.card_layout_category, parent, false);
         return new MyViewHolder(view, onItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holders, int position) {
         final MyViewHolder holder = holders;
-        CountryMeal model = meals.get(position);
+        CategoryMeal model = meals.get(position);
 
 
-           holder.imgArea.setImageResource(img[position]);
+        holder.imgArea.setImageResource(img[position]);
 
 
-        holder.mealArea.setText(model.getStrArea());
+        holder.mealArea.setText(model.getStrCategory());
 
     }
 
@@ -93,9 +84,9 @@ public class CountryMealAdapter extends RecyclerView.Adapter<CountryMealAdapter.
         public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             itemView.setOnClickListener(this);
-            mealArea = itemView.findViewById(R.id.tv_meal_area);
+            mealArea = itemView.findViewById(R.id.tv_meal_category);
 
-            imgArea = itemView.findViewById(R.id.img_country);
+            imgArea = itemView.findViewById(R.id.img_category);
 
             this.onItemClickListener = onItemClickListener;
         }
