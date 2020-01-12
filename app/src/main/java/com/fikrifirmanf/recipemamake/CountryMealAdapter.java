@@ -1,30 +1,52 @@
 package com.fikrifirmanf.recipemamake;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.fikrifirmanf.recipemamake.models.Meal;
+import com.fikrifirmanf.recipemamake.models.CountryMeal;
 
 import java.util.List;
 
-import okhttp3.internal.Util;
-
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
-    private List<Meal> meals;
+public class CountryMealAdapter extends RecyclerView.Adapter<CountryMealAdapter.MyViewHolder> {
+    private List<CountryMeal> meals;
     private Context context;
+    int img [] = {
+            R.drawable.american,
+            R.drawable.british,
+            R.drawable.canadian,
+            R.drawable.chinese,
+            R.drawable.dutch,
+            R.drawable.egyptian,
+            R.drawable.french,
+            R.drawable.greek,
+            R.drawable.indian,
+            R.drawable.irish,
+            R.drawable.italian,
+            R.drawable.jamaican,
+            R.drawable.japanese,
+            R.drawable.kenyan,
+            R.drawable.malaysian,
+            R.drawable.mexican,
+            R.drawable.moroccan,
+            R.drawable.russian,
+            R.drawable.spanish,
+            R.drawable.thai,
+            R.drawable.tunisian,
+            R.drawable.turkish,
+            R.drawable.ic_search,
+            R.drawable.vietnamese
 
-    public Adapter(List<Meal> meals, Context context) {
+
+    };
+
+    public CountryMealAdapter(List<CountryMeal> meals, Context context) {
         this.meals = meals;
         this.context = context;
     }
@@ -33,32 +55,26 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cards_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.card_layout_country, parent, false);
         return new MyViewHolder(view, onItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holders, int position) {
         final MyViewHolder holder = holders;
-        Meal model = meals.get(position);
-//        RequestOptions requestOptions = new RequestOptions();
-//        requestOptions.placeholder(Utils.getRandomDrawbleColor());
-//        requestOptions.error(Utils.getRandomDrawbleColor());
-//        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+        CountryMeal model = meals.get(position);
 
 
-        Glide.with(context)
-                .load(model.getStrMealThumb())
-//                .apply(requestOptions)
+           holder.imgArea.setImageResource(img[position]);
 
-                .into(holder.imgFood);
-        holder.nameFood.setText(model.getStrMeal());
+
+        holder.mealArea.setText(model.getStrArea());
 
     }
 
     @Override
     public int getItemCount() {
-        return meals.size();
+        return 23;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -71,15 +87,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView nameFood;
-        ImageView imgFood;
+        TextView mealArea;
+        ImageView imgArea;
         OnItemClickListener onItemClickListener;
         public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             itemView.setOnClickListener(this);
-            nameFood = itemView.findViewById(R.id.tv_name);
+            mealArea = itemView.findViewById(R.id.tv_meal_area);
 
-            imgFood = itemView.findViewById(R.id.img_picfood);
+            imgArea = itemView.findViewById(R.id.img_country);
+
             this.onItemClickListener = onItemClickListener;
         }
 

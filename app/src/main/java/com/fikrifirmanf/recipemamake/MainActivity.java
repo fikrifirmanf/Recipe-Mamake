@@ -5,14 +5,20 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.fikrifirmanf.recipemamake.api.ApiClient;
 import com.fikrifirmanf.recipemamake.api.ApiInterface;
+import com.fikrifirmanf.recipemamake.models.CountryMeal;
+import com.fikrifirmanf.recipemamake.models.CountryModel;
 import com.fikrifirmanf.recipemamake.models.FoodBritish;
 import com.fikrifirmanf.recipemamake.models.Meal;
 
@@ -24,10 +30,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewcountry;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Meal> meals = new ArrayList<>();
-    private Adapter adapter;
+
+    private List<CountryMeal> countryMeals = new ArrayList<>();
+
+    private CountryMealAdapter countryMealAdapter;
+    TextView tvArea;
+    ImageView imgArea;
+    Context context;
     private String TAG = MainActivity.class.getSimpleName();
 
 
@@ -36,46 +47,52 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.my_recycler_view);
+
+        recyclerViewcountry = findViewById(R.id.my_recycler_viewcat);
+
         //layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        LoadJson();
+
+        LoadJsonCountry();
+        //LoadJson();
 
 
 
     }
 
     private void initListener(){
-        adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
+        countryMealAdapter.setOnItemClickListener(new CountryMealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(MainActivity.this, MealRecipeDetail.class);
-                Meal meal = meals.get(position);
-                intent.putExtra("id", meal.getIdMeal());
-                intent.putExtra("title", meal.getStrMeal());
+                Intent intent = new Intent(MainActivity.this, FoodCountry.class);
+                CountryMeal meal = countryMeals.get(position);
+                intent.putExtra("area", meal.getStrArea());
+
                 startActivity(intent);
             }
         });
     }
 
-    public void LoadJson(){
+
+    public void LoadJsonCountry(){
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<FoodBritish> call;
-        call = apiInterface.getFoodBritish("British");
-        call.enqueue(new Callback<FoodBritish>() {
+        Call<CountryModel> call;
+        call = apiInterface.getCountryMeal("list");
+        call.enqueue(new Callback<CountryModel>() {
             @Override
-            public void onResponse(Call<FoodBritish> call, Response<FoodBritish> response) {
+            public void onResponse(Call<CountryModel> call, Response<CountryModel> response) {
                 if(response.isSuccessful() && response.body().getMeals() != null){
 
-                    if(!meals.isEmpty()){
-                        meals.clear();
+                    if(!countryMeals.isEmpty()){
+                        countryMeals.clear();
                     }
-                    meals = response.body().getMeals();
-                    adapter = new Adapter(meals, MainActivity.this);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    countryMeals = response.body().getMeals();
+                    countryMealAdapter = new CountryMealAdapter(countryMeals, MainActivity.this);
+                    recyclerViewcountry.setAdapter(countryMealAdapter);
+                    countryMealAdapter.notifyDataSetChanged();
+                    recyclerViewcountry.setLayoutManager(new GridLayoutManager(MainActivity.this, 2, GridLayoutManager.HORIZONTAL,false));
+                    recyclerViewcountry.setItemAnimator(new DefaultItemAnimator());
                     initListener();
+
 
 
                 }else {
@@ -84,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FoodBritish> call, Throwable t) {
+            public void onFailure(Call<CountryModel> call, Throwable t) {
 
             }
         });

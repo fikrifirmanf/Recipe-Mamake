@@ -57,6 +57,7 @@ public class FoodDetailAdapter extends RecyclerView.Adapter<FoodDetailAdapter.My
         holder.nameFood.setText(model.getStrMeal());
         holder.catFood.setText(model.getStrCategory());
         holder.descFood.setText(model.getStrInstructions());
+//        Bahane
         if(!model.getStrIngredient1().isEmpty()){
             holder.bahane.append("\n \u2022"+model.getStrIngredient1());
         }
@@ -68,6 +69,9 @@ public class FoodDetailAdapter extends RecyclerView.Adapter<FoodDetailAdapter.My
         }
         if(!model.getStrIngredient4().isEmpty()){
             holder.bahane.append("\n \u2022"+model.getStrIngredient4());
+        }
+        if(!model.getStrIngredient5().isEmpty()){
+            holder.bahane.append("\n \u2022"+model.getStrIngredient5());
         }
 
 //        Measurenya
