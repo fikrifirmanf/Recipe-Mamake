@@ -40,7 +40,7 @@ public class CountryMealAdapter extends RecyclerView.Adapter<CountryMealAdapter.
             R.drawable.thai,
             R.drawable.tunisian,
             R.drawable.turkish,
-            R.drawable.ic_search,
+            R.drawable.unknown,
             R.drawable.vietnamese
 
 

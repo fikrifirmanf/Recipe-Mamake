@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Recipe Mamake</string>
     <string name="british">British</string>
-    <string name="reciple_mamake">Reciple Mamake</string>
-    <string name="tentang">Tentang</string>
-    <string name="developer">Developer</string>
+    <string name="reciple_mamake">Recipe Mamake</string>
+    <string name="tentang">Application to display meal recipes from every country based on TheMealDB.Com data.\nThis application uses the open API from TheMealDB.com.</string>
+    <string name="developer">Developers</string>
     <string name="team_name">- Fikri Firman Fadilah (1703040024)\n - Kukuh Indra Krisdiantoro (1703040012)\n - Andri Mugi Nugroho (17030400)</string>
 </resources>

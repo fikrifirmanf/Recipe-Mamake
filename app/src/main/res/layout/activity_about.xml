@@ -19,6 +19,7 @@
         android:elevation="3dp">
 
         <LinearLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -26,12 +27,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp"
                 android:text="@string/reciple_mamake" />
 
             <TextView
+                android:textColor="@android:color/black"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
@@ -45,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/developer" />
             <TextView
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/team_name"
