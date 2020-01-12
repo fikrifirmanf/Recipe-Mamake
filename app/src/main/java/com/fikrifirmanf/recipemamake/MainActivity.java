@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -56,10 +59,9 @@ public class MainActivity extends AppCompatActivity {
         //LoadJson();
 
 
-
     }
 
-    private void initListener(){
+    private void initListener() {
         countryMealAdapter.setOnItemClickListener(new CountryMealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -73,29 +75,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void LoadJsonCountry(){
+    public void LoadJsonCountry() {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<CountryModel> call;
         call = apiInterface.getCountryMeal("list");
         call.enqueue(new Callback<CountryModel>() {
             @Override
             public void onResponse(Call<CountryModel> call, Response<CountryModel> response) {
-                if(response.isSuccessful() && response.body().getMeals() != null){
+                if (response.isSuccessful() && response.body().getMeals() != null) {
 
-                    if(!countryMeals.isEmpty()){
+                    if (!countryMeals.isEmpty()) {
                         countryMeals.clear();
                     }
                     countryMeals = response.body().getMeals();
                     countryMealAdapter = new CountryMealAdapter(countryMeals, MainActivity.this);
                     recyclerViewcountry.setAdapter(countryMealAdapter);
                     countryMealAdapter.notifyDataSetChanged();
-                    recyclerViewcountry.setLayoutManager(new GridLayoutManager(MainActivity.this, 2, GridLayoutManager.HORIZONTAL,false));
+                    recyclerViewcountry.setLayoutManager(new GridLayoutManager(MainActivity.this, 2, GridLayoutManager.HORIZONTAL, false));
                     recyclerViewcountry.setItemAnimator(new DefaultItemAnimator());
                     initListener();
 
 
-
-                }else {
+                } else {
                     Toast.makeText(MainActivity.this, "No Result!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -106,4 +107,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.about) {
+            startActivity(new Intent(this, About.class));
+        }
+        return true;
+    }
 }
+

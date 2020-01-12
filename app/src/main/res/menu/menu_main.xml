@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <item android:id="@+id/action_search"
-        android:title="Search"
-        android:icon="@drawable/ic_search"
-        android:iconTint="@android:color/white"
-        app:showAsAction="always"
-        app:actionViewClass="android.widget.SearchView"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
-        />
-    <item android:id="@+id/action_settings"
-        android:title="Search"
-        android:icon="@drawable/ic_search"
-        android:iconTint="@android:color/white"
-        app:showAsAction="always"
-        app:actionViewClass="android.widget.SearchView"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
-        />
+<!--    <item android:id="@+id/action_search"-->
+<!--        android:title="Search"-->
+<!--        android:icon="@drawable/ic_search"-->
+<!--        android:iconTint="@android:color/white"-->
+<!--        app:showAsAction="always"-->
+<!--        app:actionViewClass="android.widget.SearchView"-->
+<!--        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"-->
+<!--        />-->
+    <item
+        android:id="@+id/about"
+        android:title="About"
+        app:showAsAction="never"/>
+
+
 
 </menu>

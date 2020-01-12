@@ -37,7 +37,9 @@ public class FoodCountry extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.onResume();
         setContentView(R.layout.activity_food_country);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.my_recycler_view);
 
@@ -62,6 +64,7 @@ public class FoodCountry extends AppCompatActivity {
                 Meal meal = meals.get(position);
                 intent.putExtra("id", meal.getIdMeal());
                 intent.putExtra("title", meal.getStrMeal());
+                intent.putExtra("area", area);
                 startActivity(intent);
             }
         });

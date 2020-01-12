@@ -1,14 +1,19 @@
 package com.fikrifirmanf.recipemamake;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,29 +39,53 @@ public class MealRecipeDetail extends AppCompatActivity {
 
     private String TAG = MainActivity.class.getSimpleName();
 
-    private String mealId, title;
+    private String mealId, title, area;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_recipe_detail);
-
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //show back button
 
         recyclerView = findViewById(R.id.rv_detail);
         recyclerView.setLayoutManager(new LinearLayoutManager(MealRecipeDetail.this));
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent intent = getIntent();
 
         mealId = intent.getStringExtra("id");
         title = intent.getStringExtra("title");
+        area = intent.getStringExtra("area");
         setTitle(title);
         LoadJson();
 
 
 
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        // Write your code here
+        super.onBackPressed();
+        Intent intent = new Intent(MealRecipeDetail.this, FoodCountry.class);
+        intent.putExtra("area", area);
+    }
+
+//    public void Back(View v) {
+//        onBackPressed();
+//
+//
+//    }
+
+
+
 
 //    private void initListener(){
 //        adapters.setOnItemClickListener(new Adapter.OnItemClickListener() {
