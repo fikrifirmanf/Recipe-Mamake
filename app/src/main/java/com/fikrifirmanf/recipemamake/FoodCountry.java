@@ -27,7 +27,6 @@ import retrofit2.Response;
 
 public class FoodCountry extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private List<Meal> meals = new ArrayList<>();
     private Adapter adapter;
     private String area, cat;
@@ -42,9 +41,6 @@ public class FoodCountry extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.my_recycler_view);
-
-
-        //layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
 
 
 
